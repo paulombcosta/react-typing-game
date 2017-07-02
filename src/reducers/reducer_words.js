@@ -1,5 +1,5 @@
 export default function() {
     return [
-        "Hi", "There", "Here", "Are", "Some", "Words"
+        "hi", "there", "here", "are", "some", "words"
     ]
 }

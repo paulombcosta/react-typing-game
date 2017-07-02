@@ -1,0 +1,14 @@
+.typing {
+    background: #172238;
+    width: 800px;
+    height: 250px;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.word {
+    font-size: 30px;
+    float: left;
+    color: #FFF;
+    margin: 8px 3px 8px 8px;
+}

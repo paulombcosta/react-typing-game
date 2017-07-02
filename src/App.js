@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import KeyHandler from './components/KeyHandler';
 import TypingScene from './scenes/Typing/';
+import { connect } from 'react-redux';
+import { keyTyped } from './actions';
+import keyDispatcher from './services/key_dispatcher';
 
 class App extends Component {
 
@@ -10,7 +12,7 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    console.log(event);
+    keyDispatcher(event, keyTyped);
   }
 
   render() {
@@ -22,4 +24,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { keyTyped })(App);

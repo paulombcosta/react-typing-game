@@ -5,7 +5,7 @@ class TypingBox extends Component {
 
     render() {
         return(
-            <div>
+            <div className="typing">
                 {this.renderWords()}
             </div>
         )
@@ -14,7 +14,7 @@ class TypingBox extends Component {
     renderWords() {
         return this.props.words.map((word) => {
             return (
-                <span>{word}</span>
+                <span className="word">{word}</span>
             );
         });
     }
