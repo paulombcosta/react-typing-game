@@ -12,9 +12,9 @@ class TypingBox extends Component {
     }
 
     renderWords() {
-        return this.props.words.map((word) => {
+        return this.props.words.map((word, index) => {
             return (
-                <span className="word">{word}</span>
+                <span key={index} className="word">{word}</span>
             );
         });
     }
