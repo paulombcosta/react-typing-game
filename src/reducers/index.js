@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import WordsReducer from './reducer_words';
+import StateReducer from './reducer_state';
 
 const rootReducer = combineReducers({
-    words: WordsReducer
+    appState: StateReducer
 });
 
 export default rootReducer;

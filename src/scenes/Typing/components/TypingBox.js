@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 class TypingBox extends Component {
 
     render() {
+        console.log(this.props.appState);
         return(
             <div className="typing">
                 {this.renderWords()}
@@ -12,7 +13,7 @@ class TypingBox extends Component {
     }
 
     renderWords() {
-        return this.props.words.map((word, index) => {
+        return this.props.appState.words.map((word, index) => {
             return (
                 <span key={index} className="word">{word}</span>
             );
@@ -22,7 +23,7 @@ class TypingBox extends Component {
 
 function mapStateToProps(state) {
     return {
-        words: state.words
+        appState: state.appState
     };
 }
 
