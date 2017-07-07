@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import TypingScene from './scenes/Typing/';
 import { connect } from 'react-redux';
-import { keyTyped } from './actions';
+import { keyTyped, spaceTyped } from './actions';
 import keyDispatcher from './services/key_dispatcher';
 
 class App extends Component {
@@ -12,7 +12,8 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    keyDispatcher(event, keyTyped);
+    //this.props.keyTyped(event.key, event.keyCode);
+    keyDispatcher(event, this.props.keyTyped, this.props.spaceTyped);
   }
 
   render() {
@@ -24,4 +25,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { keyTyped })(App);
+export default connect(null, { keyTyped, spaceTyped })(App);

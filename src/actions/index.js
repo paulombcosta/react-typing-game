@@ -1,8 +1,16 @@
-export const KEY_TYPED = 'KEY_TYPED';
+export const CHARACTER_TYPED = 'CHARACTER_TYPED';
+export const SPACE_TYPED = 'SPACE_TYPED';
 
-export function keyTyped(key) {
+export function keyTyped(key, keyCode) {
     return {
-        type: KEY_TYPED,
-        payload: key
+        type: CHARACTER_TYPED,
+        payload: {key: key, keyCode: keyCode}
     }
-}
+};
+
+export function spaceTyped() {
+    return {
+        type: SPACE_TYPED,
+        payload: null
+    }
+};
