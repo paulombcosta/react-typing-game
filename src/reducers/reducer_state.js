@@ -2,13 +2,12 @@ import { randomWords } from '../services/words_generator';
 import { CHARACTER_TYPED, SPACE_TYPED } from '../actions/'
 
 export default function(state = defaultState(), action) {
+    console.log("ACTION TRIGGERED", action.type);
     switch (action.type) {
         case CHARACTER_TYPED:
-            console.log(action);
-            return state;
+            return updateCurrentTypedChars(action.payload.key, state);
         case SPACE_TYPED:
-            console.log("SPACE TYPED");
-            return state;
+            return resetCurrentTypedChars(state);
         default:
             return state;
     }
@@ -17,6 +16,15 @@ export default function(state = defaultState(), action) {
 function defaultState() {
     return {
         words: randomWords(100),
-        currentPosition: 0
+        currentPosition: 0,
+        currentTypedChars: []
     }
 };
+
+function updateCurrentTypedChars(char, state) {
+    return Object.assign({}, state, { currentTypedChars: state.currentTypedChars.concat([char]) });
+}
+
+function resetCurrentTypedChars(state) {
+    return Object.assign({}, state, { currentTypedChars: [] });
+}

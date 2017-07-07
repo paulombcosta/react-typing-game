@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class TypingBox extends Component {
 
     render() {
-        console.log(this.props.appState);
+        console.log("APP STATE", this.props.appState);
         return(
             <div className="typing">
                 {this.renderWords()}
