@@ -1,5 +1,6 @@
 import { randomWords } from '../services/words_generator';
-import { CHARACTER_TYPED, SPACE_TYPED } from '../actions/'
+import { CHARACTER_TYPED, SPACE_TYPED } from '../actions/';
+import { pipe } from '../utils/function_utils';
 
 export default function(state = defaultState(), action) {
     console.log("ACTION TRIGGERED", action.type);
@@ -7,7 +8,7 @@ export default function(state = defaultState(), action) {
         case CHARACTER_TYPED:
             return updateCurrentTypedChars(action.payload.key, state);
         case SPACE_TYPED:
-            return resetCurrentTypedChars(state);
+            return pipe(resetCurrentTypedChars, incrementPosition)(state)
         default:
             return state;
     }
@@ -27,4 +28,8 @@ function updateCurrentTypedChars(char, state) {
 
 function resetCurrentTypedChars(state) {
     return Object.assign({}, state, { currentTypedChars: [] });
+}
+
+function incrementPosition(state) {
+    return Object.assign({}, state, { currentPosition: state.currentPosition + 1 });
 }
