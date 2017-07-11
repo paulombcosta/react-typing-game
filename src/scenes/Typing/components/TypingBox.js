@@ -14,10 +14,10 @@ class TypingBox extends Component {
     }
 
     renderWords() {
-        let { words, currentPosition, currentTypedWords } = this.props.appState
+        let { words, currentPosition, currentTypedChars } = this.props.appState
         return words.map((word, index) => {
             if (index === currentPosition) {
-                return this.renderCurrentWord(word, currentTypedWords, index);
+                return this.renderCurrentWord(word, currentTypedChars, index);
             } else {
                 return this.renderWord(word, index);
             }
@@ -41,15 +41,31 @@ class TypingBox extends Component {
         }
     }
 
-    renderCurrentWord({text}, currentTypedWords, key) {
+    renderCurrentWord({text}, currentTypedChars, key) {
         let charView = [...text].map((char, index) => {
-            return <span key={index}>{char}</span>;
+            return (
+                <span 
+                    key={index}
+                    className={this.styleCurrentWord(char, currentTypedChars[index])}>
+                    {char}
+                </span>
+            );
         });
         return (
             <div key={key} className="currentWord word">
                 {charView}
             </div>
         );
+    }
+
+    styleCurrentWord(char, typedChar) {
+        if (typedChar === undefined) {
+            return ""
+        } else if (char === typedChar) {
+            return "typed-correctly"
+        } else {
+            return "typed-incorrectly"
+        }
     }
 }
 
