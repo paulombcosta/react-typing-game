@@ -13,13 +13,34 @@ class TypingBox extends Component {
     }
 
     renderWords() {
-        return this.props.appState.words.map((word, index) => {
-            return (
-                <span key={index} className="word">{word}</span>
-            );
+        let { words, currentPosition, currentTypedWords } = this.props.appState
+        return words.map((word, index) => {
+            if (index === currentPosition) {
+                return this.renderCurrentWord(word, currentTypedWords, index);
+            } else {
+                return this.renderWord(word, index);
+            }
         });
     }
+
+    renderWord(word, key) {
+        return (
+            <span key={key} className="word">{word}</span>
+        );
+    }
+
+    renderCurrentWord(word, currentTypedWords, key) {
+        let charView = [...word].map((char, index) => {
+            return <span>{char}</span>;
+        });
+        return (
+            <div key={key} className="currentWord word">
+                {charView}
+            </div>
+        );
+    }
 }
+
 
 function mapStateToProps(state) {
     return {
