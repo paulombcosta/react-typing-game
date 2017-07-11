@@ -18,11 +18,3 @@ html, body {
   height: 100%;
   background: #2A497B;
 }
-
-.typed-correctly {
-  color: green;
-}
-
-.typed-incorrecly {
-  color: red;
-}

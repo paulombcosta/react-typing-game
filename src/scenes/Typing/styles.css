@@ -13,3 +13,11 @@
     margin: 8px 3px 8px 8px;
     font-family: 'Lato', sans-serif;
 }
+
+.typed-correctly {
+  color: green;
+}
+
+.typed-incorrectly {
+  color: red;
+}

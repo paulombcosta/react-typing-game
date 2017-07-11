@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { TYPED_CORRECTLY, TYPED_INCORRECTLY } from '../../../services/word_status';
 
 class TypingBox extends Component {
 
@@ -23,14 +24,25 @@ class TypingBox extends Component {
         });
     }
 
-    renderWord(word, key) {
+    renderWord({text, status}, key) {
         return (
-            <span key={key} className="word">{word}</span>
+            <span key={key} className={this.styleWordByStatus(status)}>{text}</span>
         );
     }
 
-    renderCurrentWord(word, currentTypedWords, key) {
-        let charView = [...word].map((char, index) => {
+    styleWordByStatus(wordStatus) {
+        switch (wordStatus) {
+            case TYPED_CORRECTLY:
+                return "word typed-correctly"
+            case TYPED_INCORRECTLY:
+                return "word typed-incorrectly";
+            default:
+                return "word"
+        }
+    }
+
+    renderCurrentWord({text}, currentTypedWords, key) {
+        let charView = [...text].map((char, index) => {
             return <span key={index}>{char}</span>;
         });
         return (

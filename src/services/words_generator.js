@@ -1,9 +1,16 @@
 import words from './words_repository';
+import { UNEVALUATED } from '../services/word_status';
 
 export function randomWords(size) {
-    const wordsArray = words().slice();
+    const wordsArray = words();
     shuffle(wordsArray);
-    return wordsArray.slice(0, size);
+    return wordsArray.map(word => {
+        return {
+            text: word,
+            typedText: [],
+            status: UNEVALUATED
+        };
+    });
 }
 
 function shuffle(array) {
