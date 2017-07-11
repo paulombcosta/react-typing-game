@@ -23,13 +23,13 @@ function defaultState() {
 };
 
 function updateCurrentTypedChars(char, state) {
-    return Object.assign({}, state, { currentTypedChars: state.currentTypedChars.concat([char]) });
+    return {...state, currentTypedChars: [...state.currentTypedChars, char]};
 }
 
 function resetCurrentTypedChars(state) {
-    return Object.assign({}, state, { currentTypedChars: [] });
+    return {...state, currentTypedChars: []};
 }
 
 function incrementPosition(state) {
-    return Object.assign({}, state, { currentPosition: state.currentPosition + 1 });
+    return {...state, currentPosition: state.currentPosition + 1};
 }
