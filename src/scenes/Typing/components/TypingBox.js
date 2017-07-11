@@ -7,8 +7,10 @@ class TypingBox extends Component {
     render() {
         console.log("APP STATE", this.props.appState);
         return(
-            <div className="typing">
-                {this.renderWords()}
+            <div className="container">
+                <div className="typing">
+                    {this.renderWords()}
+                </div>
             </div>
         )
     }
@@ -25,8 +27,10 @@ class TypingBox extends Component {
     }
 
     renderWord({text, status}, key) {
+        let wordId = `word-${key}`;
+        let className = `word this.styleWordByStatus(status)`;
         return (
-            <span key={key} className={this.styleWordByStatus(status)}>{text}</span>
+            <span key={key} className={className} id={wordId}>{text}</span>
         );
     }
 
@@ -42,17 +46,19 @@ class TypingBox extends Component {
     }
 
     renderCurrentWord({text}, currentTypedChars, key) {
+        let wordId = `word-${key}`;
         let charView = [...text].map((char, index) => {
+            let className = `${this.styleCurrentWord(char, currentTypedChars[index])}`;
             return (
-                <span 
+                <span
                     key={index}
-                    className={this.styleCurrentWord(char, currentTypedChars[index])}>
+                    className={className}>
                     {char}
                 </span>
             );
         });
         return (
-            <div key={key} className="currentWord word">
+            <div key={key} className="word" id={wordId}>
                 {charView}
             </div>
         );
