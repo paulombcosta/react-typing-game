@@ -31,7 +31,7 @@ class TypingBox extends Component {
 
     renderCurrentWord(word, currentTypedWords, key) {
         let charView = [...word].map((char, index) => {
-            return <span>{char}</span>;
+            return <span key={index}>{char}</span>;
         });
         return (
             <div key={key} className="currentWord word">
