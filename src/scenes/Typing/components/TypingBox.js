@@ -4,6 +4,9 @@ import { TYPED_CORRECTLY, TYPED_INCORRECTLY } from '../../../services/word_statu
 
 class TypingBox extends Component {
 
+    componentDidMount() {
+    }
+
     render() {
         console.log("APP STATE", this.props.appState);
         return(
@@ -28,7 +31,7 @@ class TypingBox extends Component {
 
     renderWord({text, status}, key) {
         let wordId = `word-${key}`;
-        let className = `word this.styleWordByStatus(status)`;
+        let className = `word ${this.styleWordByStatus(status)}`;
         return (
             <span key={key} className={className} id={wordId}>{text}</span>
         );
@@ -48,7 +51,7 @@ class TypingBox extends Component {
     renderCurrentWord({text}, currentTypedChars, key) {
         let wordId = `word-${key}`;
         let charView = [...text].map((char, index) => {
-            let className = `${this.styleCurrentWord(char, currentTypedChars[index])}`;
+            let className = this.styleCurrentWord(char, currentTypedChars[index]);
             return (
                 <span
                     key={index}

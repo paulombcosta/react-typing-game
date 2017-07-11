@@ -8,9 +8,9 @@ export function keyTyped(key, keyCode) {
     }
 };
 
-export function spaceTyped() {
+export function spaceTyped(lastWordBounds) {
     return {
         type: SPACE_TYPED,
-        payload: null
+        payload: lastWordBounds
     }
 };

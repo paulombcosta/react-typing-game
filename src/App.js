@@ -13,7 +13,7 @@ class App extends Component {
 
   handleKeyDown = (event) => {
     //this.props.keyTyped(event.key, event.keyCode);
-    keyDispatcher(event, this.props.keyTyped, this.props.spaceTyped);
+    keyDispatcher(event, this.props.keyTyped, this.props.currentPosition, this.props.spaceTyped);
   }
 
   render() {
@@ -25,4 +25,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, { keyTyped, spaceTyped })(App);
+function mapStateToProps(state) {
+    return {
+        currentPosition: state.appState.currentPosition
+    };
+}
+
+export default connect(mapStateToProps, { keyTyped, spaceTyped })(App);
