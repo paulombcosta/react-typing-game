@@ -78,7 +78,7 @@ function updateAppliedDistance(currentWordBounds) {
     return (state) => {
         let currentWordTopDistance = currentWordBounds.top;
         let previousWordTopDistance = state.distanceTop;
-        if (currentWordTopDistance === 150 && previousWordTopDistance < 150) {
+        if (currentWordTopDistance === 300 && previousWordTopDistance <= 252) {
             return {...state, appliedDistance: state.appliedDistance + 48};
         } else {
             return state;
