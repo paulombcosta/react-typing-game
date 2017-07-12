@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import TypingScene from './scenes/Typing/';
+import StatisticsScene from './scenes/Statistics/';
 import { connect } from 'react-redux';
-import { keyTyped, spaceTyped } from './actions';
+import { keyTyped, spaceTyped, tick } from './actions';
 import keyDispatcher from './services/key_dispatcher';
 
 class App extends Component {
@@ -12,13 +13,24 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    //this.props.keyTyped(event.key, event.keyCode);
     keyDispatcher(event, this.props.keyTyped, this.props.currentPosition, this.props.spaceTyped);
+    this.startCountdownTimer();
+  }
+
+  startCountdownTimer() {
+    if (this.props.applicationStarted && this.timerActive === undefined) {
+      console.log("COUNTDOWN STARTED")
+      this.timerActive = true;
+      setInterval(() => {
+        this.props.tick();
+      }, 1000);
+    }
   }
 
   render() {
     return (
-      <div>
+      <div className="app-container">
+        <StatisticsScene />
         <TypingScene />
       </div>
     );
@@ -27,8 +39,9 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentPosition: state.appState.currentPosition
+        currentPosition: state.appState.currentPosition,
+        applicationStarted: state.appState.applicationStarted
     };
 }
 
-export default connect(mapStateToProps, { keyTyped, spaceTyped })(App);
+export default connect(mapStateToProps, { keyTyped, spaceTyped, tick })(App);

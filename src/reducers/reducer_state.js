@@ -1,13 +1,14 @@
 import { randomWords } from '../services/words_generator';
-import { CHARACTER_TYPED, SPACE_TYPED } from '../actions/';
+import { CHARACTER_TYPED, SPACE_TYPED, TICK } from '../actions/';
 import { pipe } from '../utils/function_utils';
 import { update } from '../services/word_status';
 
 export default function(state = defaultState(), action) {
-    //console.log("ACTION TRIGGERED", action.type);
     switch (action.type) {
         case CHARACTER_TYPED:
-            return updateCurrentTypedChars(action.payload.key, state);
+            return pipe(
+                updateCurrentTypedChars(action.payload.key),
+                startApplication)(state);
         case SPACE_TYPED:
             return pipe(
                 updateWordStatus,
@@ -15,6 +16,8 @@ export default function(state = defaultState(), action) {
                 incrementPosition,
                 updateAppliedDistance(action.payload),
                 updateTopDistance(action.payload)) (state);
+        case TICK:
+            return {...state, elapsedTime: state.elapsedTime + 1};
         default:
             return state;
     }
@@ -27,11 +30,23 @@ function defaultState() {
         currentTypedChars: [],
         distanceTop: 0,
         appliedDistance: 0,
+        applicationStarted: false,
+        elapsedTime: 0
     }
 };
 
-function updateCurrentTypedChars(char, state) {
-    return {...state, currentTypedChars: [...state.currentTypedChars, char]};
+function startApplication(state) {
+    if (state.applicationStarted === false) {
+        return {...state, applicationStarted: true};
+    } else {
+        return state;
+    }
+}
+
+function updateCurrentTypedChars(char) {
+    return (state) => {
+        return {...state, currentTypedChars: [...state.currentTypedChars, char]};
+    }
 }
 
 function resetCurrentTypedChars(state) {

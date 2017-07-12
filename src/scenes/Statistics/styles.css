@@ -1,0 +1,21 @@
+.stats-container {
+    color: #FFF;
+    background: #172238;
+    width: 500px;
+    height: 100px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cpm-container {
+}
+
+.countdown-container {
+}
+
+.wpm-container {
+}
+
