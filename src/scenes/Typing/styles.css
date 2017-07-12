@@ -3,6 +3,7 @@
     width: 800px;
     height: 250px;
     overflow: hidden;
+    transition: margin .5s linear;
 }
 
 .container {
