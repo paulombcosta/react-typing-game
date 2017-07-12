@@ -9,13 +9,23 @@ class TypingBox extends Component {
 
     render() {
         console.log("APP STATE", this.props.appState);
+        let { appliedDistance } = this.props.appState;
+        const styleScroll = this.applyScrollProperties(appliedDistance);
         return(
             <div className="container">
-                <div className="typing">
+                <div className="typing" style={styleScroll}>
                     {this.renderWords()}
                 </div>
             </div>
         )
+    }
+
+    applyScrollProperties(appliedDistance) {
+        let baseHeight = 250;
+        return {
+            marginTop: appliedDistance * (-1) + 'px',
+            height: baseHeight + appliedDistance + 'px'
+        }
     }
 
     renderWords() {
