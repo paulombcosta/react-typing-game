@@ -10,13 +10,15 @@ class Statistics extends Component {
         return (
             <div className="stats-container">
                 <div className="wpm-container">
-                    WPM
+                    <span>WPM</span>
+                    <span>---</span>
                 </div>
                 <div className="countdown-container">
                     {this.renderCountdown()}
                 </div>
                 <div className="cpm-container">
-                    CPM
+                    <span>CPM</span>
+                    <span>---</span>
                 </div>
             </div>
         );
