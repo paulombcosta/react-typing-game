@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TYPED_CORRECTLY, TYPED_INCORRECTLY, UNEVALUATED } from '../../../services/word_status';
+import { STARTED, NOT_STARTED, FINISHED } from '../../../services/application_status';
 
 class Statistics extends Component {
-
-    componentDidMount() {
-    }
 
     render() {
         return (
@@ -26,41 +24,42 @@ class Statistics extends Component {
     }
 
     renderCountdown() {
-        let { elapsedTime, applicationStarted } = this.props.appState;
-        if (!applicationStarted) {
-            return 60;
-        } else {
+        let { elapsedTime, applicationStatus } = this.props.appState;
+        if (applicationStatus === STARTED) {
             return 60 - elapsedTime;
+        } else {
+            return 60;
         }
     }
 
     renderWPM() {
-        let { elapsedTime, applicationStarted } = this.props.appState;
-        if (elapsedTime <= 0 || !applicationStarted) {
-            return '---';
+        let { elapsedTime, applicationStatus } = this.props.appState;
+        if (applicationStatus === STARTED && elapsedTime > 0) {
+            return Math.floor(this.cpm / 5).toString();
+        } else {
+            return "---";
         }
-        return Math.floor(this.cpm / 5).toString();
     }
 
     renderCPM() {
-        let { elapsedTime, applicationStarted, words } = this.props.appState;
+        let { elapsedTime, applicationStatus, words } = this.props.appState;
         let chars = 0;
 
-        if (elapsedTime <= 0 || !applicationStarted) {
-            return '---';
+        if (applicationStatus === STARTED && elapsedTime > 0) {
+            words.every((elem, idx) => {
+                if (elem.status === UNEVALUATED) {
+                    return false;
+                }
+                if (elem.status === TYPED_CORRECTLY) {
+                    chars += elem.text.length
+                }
+                return true;
+            });
+            this.cpm = Math.floor(chars * (60 / elapsedTime));
+            return this.cpm.toString();
+        } else {
+            return "---"
         }
-
-        words.every((elem, idx) => {
-            if (elem.status === UNEVALUATED) {
-                return false;
-            }
-            if (elem.status === TYPED_CORRECTLY) {
-                chars+= elem.text.length
-            }
-            return true;
-        });
-        this.cpm = Math.floor(chars * (60/elapsedTime));
-        return this.cpm.toString();
     }
 
 };

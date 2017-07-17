@@ -1,6 +1,7 @@
 export const CHARACTER_TYPED = 'CHARACTER_TYPED';
 export const SPACE_TYPED = 'SPACE_TYPED';
 export const TICK = "TICK";
+export const END_APPLICATION = "END_APPLICATION";
 
 export function keyTyped(key, keyCode) {
     return {
@@ -19,6 +20,13 @@ export function spaceTyped(lastWordBounds) {
 export function tick() {
     return {
         type: TICK,
+        payload: {}
+    }
+};
+
+export function endApplication() {
+    return {
+        type: END_APPLICATION,
         payload: {}
     }
 };

@@ -2,6 +2,7 @@ import { randomWords } from '../services/words_generator';
 import { CHARACTER_TYPED, SPACE_TYPED, TICK } from '../actions/';
 import { pipe } from '../utils/function_utils';
 import { update } from '../services/word_status';
+import { STARTED, NOT_STARTED, FINISHED } from '../services/application_status';
 
 export default function(state = defaultState(), action) {
     switch (action.type) {
@@ -30,14 +31,14 @@ function defaultState() {
         currentTypedChars: [],
         distanceTop: 0,
         appliedDistance: 0,
-        applicationStarted: false,
+        applicationStatus: NOT_STARTED,
         elapsedTime: 0
     }
 };
 
 function startApplication(state) {
-    if (state.applicationStarted === false) {
-        return {...state, applicationStarted: true};
+    if (state.applicationStatus === NOT_STARTED) {
+        return {...state, applicationStatus: STARTED};
     } else {
         return state;
     }

@@ -5,6 +5,7 @@ import StatisticsScene from './scenes/Statistics/';
 import { connect } from 'react-redux';
 import { keyTyped, spaceTyped, tick } from './actions';
 import keyDispatcher from './services/key_dispatcher';
+import { STARTED } from './services/application_status';
 
 class App extends Component {
 
@@ -18,7 +19,7 @@ class App extends Component {
   }
 
   startCountdownTimer() {
-    if (this.props.applicationStarted && this.timerActive === undefined) {
+    if (this.props.applicationStatus === STARTED && this.timerActive === undefined) {
       console.log("COUNTDOWN STARTED")
       this.timerActive = true;
       setInterval(() => {
@@ -40,7 +41,7 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         currentPosition: state.appState.currentPosition,
-        applicationStarted: state.appState.applicationStarted
+        applicationStatus: state.appState.applicationStatus
     };
 }
 
