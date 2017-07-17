@@ -1,7 +1,7 @@
 export const CHARACTER_TYPED = 'CHARACTER_TYPED';
 export const SPACE_TYPED = 'SPACE_TYPED';
 export const TICK = "TICK";
-export const END_APPLICATION = "END_APPLICATION";
+export const RESTART = "RESTART";
 
 export function keyTyped(key, keyCode) {
     return {
@@ -24,9 +24,9 @@ export function tick() {
     }
 };
 
-export function endApplication() {
+export function restart() {
     return {
-        type: END_APPLICATION,
+        type: RESTART,
         payload: {}
     }
 };

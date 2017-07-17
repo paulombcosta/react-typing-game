@@ -17,7 +17,7 @@ class TypingBox extends Component {
                     {this.renderWords()}
                 </div>
             </div>
-        )
+        );
     }
 
     applyScrollProperties(appliedDistance) {

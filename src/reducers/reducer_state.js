@@ -1,8 +1,8 @@
 import { randomWords } from '../services/words_generator';
-import { CHARACTER_TYPED, SPACE_TYPED, TICK } from '../actions/';
+import { CHARACTER_TYPED, SPACE_TYPED, TICK, RESTART } from '../actions/';
 import { pipe } from '../utils/function_utils';
 import { update } from '../services/word_status';
-import { STARTED, NOT_STARTED, FINISHED } from '../services/application_status';
+import { STARTED, NOT_STARTED, FINISHED} from '../services/application_status';
 
 export default function(state = defaultState(), action) {
     switch (action.type) {
@@ -18,7 +18,9 @@ export default function(state = defaultState(), action) {
                 updateAppliedDistance(action.payload),
                 updateTopDistance(action.payload)) (state);
         case TICK:
-            return {...state, elapsedTime: state.elapsedTime + 1};
+            return onTick(state);
+        case RESTART:
+            return restartApplication();
         default:
             return state;
     }
@@ -85,4 +87,19 @@ function updateAppliedDistance(currentWordBounds) {
             return state;
         }
     }
+}
+
+function onTick(state) {
+    const updatedElapsedTime = state.elapsedTime + 1;
+    if (updatedElapsedTime === 60) {
+        return {...state, elapsedTime: state.elapsedTime + 1, applicationStatus: FINISHED}
+    } else if (state.applicationStatus === STARTED) {
+        return { ...state, elapsedTime: state.elapsedTime + 1 };
+    } else {
+        return state;
+    }
+}
+
+function restartApplication() {
+    return defaultState();
 }

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import TypingScene from './scenes/Typing/';
 import StatisticsScene from './scenes/Statistics/';
+import RestartScene from './scenes/Restart';
 import { connect } from 'react-redux';
 import { keyTyped, spaceTyped, tick } from './actions';
 import keyDispatcher from './services/key_dispatcher';
-import { STARTED } from './services/application_status';
+import { STARTED, FINISHED } from './services/application_status';
 
 class App extends Component {
 
@@ -14,17 +15,22 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    keyDispatcher(event, this.props.keyTyped, this.props.currentPosition, this.props.spaceTyped);
-    this.startCountdownTimer();
+    if (this.props.applicationStatus !== FINISHED) {
+      keyDispatcher(event, this.props.keyTyped, this.props.currentPosition, this.props.spaceTyped);
+    }
+    this.handleCountdownTimer();
   }
 
-  startCountdownTimer() {
-    if (this.props.applicationStatus === STARTED && this.timerActive === undefined) {
+  handleCountdownTimer() {
+    if (this.props.applicationStatus === STARTED && this.timeIntervalId === undefined) {
       console.log("COUNTDOWN STARTED")
-      this.timerActive = true;
-      setInterval(() => {
+      this.timeIntervalId = setInterval(() => {
         this.props.tick();
       }, 1000);
+    }
+    if (this.props.applicationStatus === FINISHED && this.timeIntervalId !== undefined) {
+      clearInterval(this.timeIntervalId);
+      this.timeIntervalId = null;
     }
   }
 
@@ -33,6 +39,7 @@ class App extends Component {
       <div className="app-container">
         <StatisticsScene />
         <TypingScene />
+        <RestartScene />
       </div>
     );
   }

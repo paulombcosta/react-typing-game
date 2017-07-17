@@ -1,0 +1,30 @@
+.restart {
+    margin-top: 30px;
+    border: 1px solid #172238;
+    border-radius: 100px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #172238;
+    font-size: 35px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+/* .restart a {
+    display: flex;
+    font-size: 35px;
+    color: #2A497B;
+} */
+
+/* .restart a:hover {
+} */
+
+.restart:active {
+    background: #FFF;
+    color: #172238;
+}
+
+/* background: #172238; */

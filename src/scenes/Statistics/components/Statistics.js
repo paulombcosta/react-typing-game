@@ -27,6 +27,8 @@ class Statistics extends Component {
         let { elapsedTime, applicationStatus } = this.props.appState;
         if (applicationStatus === STARTED) {
             return 60 - elapsedTime;
+        } else if (applicationStatus === FINISHED){
+            return "Finished!";
         } else {
             return 60;
         }
@@ -34,7 +36,7 @@ class Statistics extends Component {
 
     renderWPM() {
         let { elapsedTime, applicationStatus } = this.props.appState;
-        if (applicationStatus === STARTED && elapsedTime > 0) {
+        if (applicationStatus === FINISHED || (applicationStatus === STARTED && elapsedTime > 0)) {
             return Math.floor(this.cpm / 5).toString();
         } else {
             return "---";
@@ -45,7 +47,7 @@ class Statistics extends Component {
         let { elapsedTime, applicationStatus, words } = this.props.appState;
         let chars = 0;
 
-        if (applicationStatus === STARTED && elapsedTime > 0) {
+        if (applicationStatus === FINISHED || (applicationStatus === STARTED && elapsedTime > 0)) {
             words.every((elem, idx) => {
                 if (elem.status === UNEVALUATED) {
                     return false;
