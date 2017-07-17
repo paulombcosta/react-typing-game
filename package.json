@@ -14,5 +14,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "ts-loader": "^2.3.0",
+    "typescript": "^2.4.1",
+    "typings": "^2.1.1"
   }
 }
